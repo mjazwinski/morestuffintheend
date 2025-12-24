@@ -1,0 +1,13 @@
+{
+  "itemGroup.morestuffintheend": "Example Mod Tab",
+  "block.morestuffintheend.example_block": "Example Block",
+  "item.morestuffintheend.example_item": "Example Item",
+
+  "morestuffintheend.configuration.title": "More stuff in the End Configs",
+  "morestuffintheend.configuration.section.morestuffintheend.common.toml": "More stuff in the End Configs",
+  "morestuffintheend.configuration.section.morestuffintheend.common.toml.title": "More stuff in the End Configs",
+  "morestuffintheend.configuration.items": "Item List",
+  "morestuffintheend.configuration.logDirtBlock": "Log Dirt Block",
+  "morestuffintheend.configuration.magicNumberIntroduction": "Magic Number Text",
+  "morestuffintheend.configuration.magicNumber": "Magic Number"
+}
