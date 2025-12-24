@@ -4,9 +4,14 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
+import com.art.morestuff.entity.BlasterProjectile;
+import com.art.morestuff.item.BlasterItem;
+
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -44,6 +49,8 @@ public class MorestuffintheEnd {
     public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(MODID);
     // Create a Deferred Register to hold CreativeModeTabs which will all be registered under the "morestuffintheend" namespace
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
+    // Create a Deferred Register to hold EntityTypes which will all be registered under the "morestuffintheend" namespace
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(Registries.ENTITY_TYPE, MODID);
 
     // Creates a new Block with the id "morestuffintheend:example_block", combining the namespace and path
     public static final DeferredBlock<Block> EXAMPLE_BLOCK = BLOCKS.registerSimpleBlock("example_block", p -> p.mapColor(MapColor.STONE));
@@ -53,6 +60,19 @@ public class MorestuffintheEnd {
     // Creates a new food item with the id "morestuffintheend:example_id", nutrition 1 and saturation 2
     public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", p -> p.food(new FoodProperties.Builder()
             .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
+
+    // Register the blaster item
+    public static final DeferredItem<Item> BLASTER = ITEMS.register("blaster", () -> new BlasterItem(new Item.Properties()));
+
+    // Register the blaster projectile entity type
+    public static final DeferredHolder<EntityType<?>, EntityType<BlasterProjectile>> BLASTER_PROJECTILE = ENTITY_TYPES.register(
+        "blaster_projectile",
+        () -> EntityType.Builder.<BlasterProjectile>of(BlasterProjectile::new, MobCategory.MISC)
+            .sized(0.25f, 0.25f)
+            .clientTrackingRange(4)
+            .updateInterval(10)
+            .build("blaster_projectile")
+    );
 
     // Creates a creative tab with the id "morestuffintheend:example_tab" for the example item, that is placed after the combat tab
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS.register("example_tab", () -> CreativeModeTab.builder()
@@ -75,6 +95,8 @@ public class MorestuffintheEnd {
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so tabs get registered
         CREATIVE_MODE_TABS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so entity types get registered
+        ENTITY_TYPES.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (MorestuffintheEnd) to respond directly to events.
@@ -105,6 +127,10 @@ public class MorestuffintheEnd {
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
             event.accept(EXAMPLE_BLOCK_ITEM);
+        }
+        // Add the blaster to the combat tab
+        if (event.getTabKey() == CreativeModeTabs.COMBAT) {
+            event.accept(BLASTER);
         }
     }
 

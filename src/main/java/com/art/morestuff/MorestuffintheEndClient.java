@@ -1,12 +1,14 @@
 package com.art.morestuff;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -27,5 +29,16 @@ public class MorestuffintheEndClient {
         // Some client setup code
         MorestuffintheEnd.LOGGER.info("HELLO FROM CLIENT SETUP");
         MorestuffintheEnd.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+    }
+
+    @SubscribeEvent
+    static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
+        // Register renderer for blaster projectile
+        // Using ThrownItemRenderer for a simple projectile visualization
+        // The projectile will render as a small item-like entity
+        event.registerEntityRenderer(
+            MorestuffintheEnd.BLASTER_PROJECTILE.get(), 
+            ThrownItemRenderer::new
+        );
     }
 }

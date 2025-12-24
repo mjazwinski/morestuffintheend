@@ -2,6 +2,7 @@
   "itemGroup.morestuffintheend": "Example Mod Tab",
   "block.morestuffintheend.example_block": "Example Block",
   "item.morestuffintheend.example_item": "Example Item",
+  "item.morestuffintheend.blaster": "Imperial Blaster",
 
   "morestuffintheend.configuration.title": "More stuff in the End Configs",
   "morestuffintheend.configuration.section.morestuffintheend.common.toml": "More stuff in the End Configs",
