@@ -1,7 +1,7 @@
 package com.art.morestuff;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
@@ -34,11 +34,11 @@ public class MorestuffintheEndClient {
     @SubscribeEvent
     static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         // Register renderer for blaster projectile
-        // Using ThrownItemRenderer for a simple projectile visualization
-        // The projectile will render as a small item-like entity
+        // Using NoopRenderer - the projectile will be visible through particles only
+        // This is a minimal renderer that doesn't render the entity itself, just allows it to exist
         event.registerEntityRenderer(
-            MorestuffintheEnd.BLASTER_PROJECTILE.get(), 
-            ThrownItemRenderer::new
+            MorestuffintheEnd.BLASTER_PROJECTILE.get(),
+            NoopRenderer::new
         );
     }
 }

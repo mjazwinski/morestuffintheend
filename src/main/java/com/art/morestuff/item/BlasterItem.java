@@ -5,11 +5,10 @@ import com.art.morestuff.entity.BlasterProjectile;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -21,13 +20,12 @@ public class BlasterItem extends Item {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
-        Item item = itemstack.getItem();
         
         // Check if player is on cooldown
-        if (player.getCooldowns().isOnCooldown(item)) {
-            return InteractionResultHolder.fail(itemstack);
+        if (player.getCooldowns().isOnCooldown(itemstack)) {
+            return InteractionResult.FAIL;
         }
 
         if (!level.isClientSide()) {
@@ -58,14 +56,9 @@ public class BlasterItem extends Item {
         }
         
         // Set cooldown
-        player.getCooldowns().addCooldown(item, COOLDOWN_TICKS);
+        player.getCooldowns().addCooldown(itemstack, COOLDOWN_TICKS);
         
-        return InteractionResultHolder.success(itemstack);
-    }
-
-    @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
-        return UseAnim.BOW;
+        return InteractionResult.SUCCESS;
     }
 }
 

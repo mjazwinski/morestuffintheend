@@ -10,6 +10,8 @@ import com.art.morestuff.item.BlasterItem;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
@@ -61,8 +63,10 @@ public class MorestuffintheEnd {
     public static final DeferredItem<Item> EXAMPLE_ITEM = ITEMS.registerSimpleItem("example_item", p -> p.food(new FoodProperties.Builder()
             .alwaysEdible().nutrition(1).saturationModifier(2f).build()));
 
-    // Register the blaster item
-    public static final DeferredItem<Item> BLASTER = ITEMS.register("blaster", () -> new BlasterItem(new Item.Properties()));
+    // Register the blaster item using registerItem (deprecated but works for custom items)
+    // This method sets the ID on Properties before passing to the item constructor
+    @SuppressWarnings("deprecation")
+    public static final DeferredItem<Item> BLASTER = ITEMS.registerItem("blaster", BlasterItem::new, new Item.Properties());
 
     // Register the blaster projectile entity type
     public static final DeferredHolder<EntityType<?>, EntityType<BlasterProjectile>> BLASTER_PROJECTILE = ENTITY_TYPES.register(
@@ -71,7 +75,7 @@ public class MorestuffintheEnd {
             .sized(0.25f, 0.25f)
             .clientTrackingRange(4)
             .updateInterval(10)
-            .build("blaster_projectile")
+            .build(ResourceKey.create(Registries.ENTITY_TYPE, Identifier.fromNamespaceAndPath(MODID, "blaster_projectile")))
     );
 
     // Creates a creative tab with the id "morestuffintheend:example_tab" for the example item, that is placed after the combat tab
