@@ -45,7 +45,7 @@ public class BlasterItem extends Item {
             projectile.setPos(spawnPos.x, spawnPos.y, spawnPos.z);
             
             // Set velocity based on look direction
-            double speed = 1.5; // Adjust speed as needed
+            double speed = 4.5; // 3x faster than original (1.5 * 3)
             projectile.shoot(lookDirection.x, lookDirection.y, lookDirection.z, (float)speed, 0.0f);
             
             level.addFreshEntity(projectile);

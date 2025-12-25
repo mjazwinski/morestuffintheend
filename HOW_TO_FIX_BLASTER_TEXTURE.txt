@@ -1,0 +1,44 @@
+HOW TO FIX THE BLASTER TEXTURE
+================================
+
+The blaster currently looks like a brick because the texture file needs to be replaced.
+
+LOCATION:
+src\main\resources\assets\morestuffintheend\textures\item\blaster.png
+
+SOLUTION OPTION 1 - Use Python Script:
+---------------------------------------
+1. Open terminal in the project root
+2. Run: python create_blaster_texture.py
+3. This will generate a gun texture automatically
+
+SOLUTION OPTION 2 - Manual Creation:
+-------------------------------------
+1. Open an image editor (Paint, GIMP, Photoshop, etc.)
+2. Create a NEW 16x16 pixel image
+3. Draw a simple gun design:
+   
+   Layout (from left to right, top to bottom):
+   
+   [Handle] [Body Box] [Barrel]
+   
+   - Handle: Small vertical rectangle on left (2-3 pixels wide, 4-5 pixels tall)
+   - Body: Square/rectangle in center (4-5 pixels wide, 4-5 pixels tall)
+   - Barrel: Longer rectangle extending right (6-8 pixels wide, 2-3 pixels tall)
+   
+4. Use colors:
+   - Dark gray/black for main parts (#333333 or darker)
+   - Lighter gray for highlights (#888888)
+   - Black for outlines
+   
+5. Save as: blaster.png (replace the existing file)
+
+SOLUTION OPTION 3 - Download a Texture:
+----------------------------------------
+1. Search online for "Minecraft item texture Star Wars blaster"
+2. Find a 16x16 or 32x32 pixel image
+3. Resize to 16x16 if needed
+4. Save as blaster.png in the textures/item folder
+
+After replacing the texture, restart Minecraft to see the changes.
+
